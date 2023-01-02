@@ -28,6 +28,7 @@ print('6의 결과 :' , result)
 # input, output은 바꿀수없다.
 # 훈련량, 레이어의 깊이(개수) 조정 가능
 
+
 """
 batch_size=1
 6/6 Epoch
