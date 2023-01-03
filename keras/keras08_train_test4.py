@@ -29,8 +29,6 @@ print('x_test: :', x_test)
 print('y_train : ', y_train)
 print('y_test : ', y_test)
 
-
-
 #2. 모델구성
 model = Sequential()
 model.add(Dense(9, input_dim=3))        # input_dim = 열(컬럼, 피쳐, 특성)의 개수와 같다. 행무시 열우선 
@@ -57,7 +55,6 @@ print('loss : ', loss)
 
 result = model.predict([[9, 30, 210]])
 print('[9, 30, 210]의 예측값 :', result)
-
 
 """
 결과값

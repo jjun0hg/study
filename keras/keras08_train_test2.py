@@ -14,7 +14,6 @@ y_test = y[-3:]
 print(y_train)
 print(y_test)
 
-
 #2. 모델구성
 model = Sequential()
 model.add(Dense(50, input_dim=1))
@@ -27,7 +26,6 @@ model.add(Dense(80))
 model.add(Dense(30))
 model.add(Dense(15))
 model.add(Dense(1))
-
 
 #3. 컴파일, 훈련
 model.compile(loss='mae', optimizer = 'adam')

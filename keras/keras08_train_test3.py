@@ -20,14 +20,12 @@ print('x_test: :', x_test)
 print('y_train : ', y_train)
 print('y_test : ', y_test)
 
-
 # x_train = x[:7]
 # x_test = x[7:]
 # y_train = y[:-3]
 # # y_test = y[-3:]
 # print(y_train)
 # print(y_test)
-
 
 #2. 모델구성
 model = Sequential()
@@ -41,7 +39,6 @@ model.add(Dense(80))
 model.add(Dense(30))
 model.add(Dense(15))
 model.add(Dense(1))
-
 
 #3. 컴파일, 훈련
 model.compile(loss='mae', optimizer = 'adam')
