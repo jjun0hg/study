@@ -11,7 +11,7 @@ x_train, x_test, y_train, y_test = train_test_split(
     x, y, 
     train_size = 0.7, 
     # test_size = 0.3, 
-    shuffle=True,   #False일 경우 test1, 2와 동일한 결과, shuffle작성하지 않으면 True로 default 되어있다.   
+    shuffle=True,                                   #False일 경우 test1, 2와 동일한 결과, shuffle작성하지 않으면 True로 default 되어있다.   
     random_state=123    
 )
 

@@ -20,7 +20,7 @@ x_train, x_test, y_train, y_test = train_test_split(
     x, y, 
     train_size = 0.7, 
     # test_size = 0.3, 
-    shuffle=True,   #False일 경우 test1, 2와 동일한 결과, shuffle작성하지 않으면 True로 default 되어있다.   
+    shuffle=True,                                               #False일 경우 test1, 2와 동일한 결과, shuffle작성하지 않으면 True로 default 되어있다.   
     # random_state=123    
 )
 
@@ -31,7 +31,7 @@ print('y_test : ', y_test)
 
 #2. 모델구성
 model = Sequential()
-model.add(Dense(9, input_dim=3))        # input_dim = 열(컬럼, 피쳐, 특성)의 개수와 같다. 행무시 열우선 
+model.add(Dense(9, input_dim=3))                                # input_dim = 열(컬럼, 피쳐, 특성)의 개수와 같다. 행무시 열우선 
 model.add(Dense(15))
 model.add(Dense(21))
 model.add(Dense(24))

@@ -30,10 +30,10 @@ y_predict = model.predict(x)            #   x에 대하여 예측
 import matplotlib.pyplot as plt
 plt.scatter(x, y)                       #   점20 개 (x,y)
 plt.plot(x, y_predict, color='red')     #   선긋기
-plt.show()                              #   그래프
+plt.show()                              #   점 20개를 찍고, x값과, y의 x값에 대한 예측값을 나타낸다.
 
-# loss 훈련데이터와 테스트 데이터를 구분하여 진행했기 때문에 마지막 loss값의 차이가 있다.
-# 보편적으로 test데이터의 loss값이 더 좋지 않다.
+                                        # loss 훈련데이터와 테스트 데이터를 구분하여 진행했기 때문에 마지막 loss값의 차이가 있다.
+                                        # 보편적으로 test데이터의 loss값이 더 좋지 않다.
 
 
 
