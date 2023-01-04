@@ -45,5 +45,13 @@ def RMSE(y_test, y_predict):
 print("RMSE : ", RMSE(y_test, y_predict))
 
 # RMSE :  3.86149851789604
-# RMSE :  3.8505546021288635
+# RMSE :  3.8505546021288635    가장 좋은 가중치
 # RMSE :  3.855078208869394
+# RMSE :  3.919321611530858
+
+
+
+
+
+
+
