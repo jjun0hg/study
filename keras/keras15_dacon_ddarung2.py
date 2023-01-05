@@ -30,6 +30,7 @@ train_csv = train_csv.dropna()          # 결측치 제거
 print(train_csv.isnull().sum())         # null값 모두 더하기
 print(train_csv.shape)                  # (1328, 10)
 
+
 x = train_csv.drop(['count'], axis=1)   # axis=축
 print(x)    #   [1459 rows x 9 columns]
 y = train_csv['count']

@@ -64,6 +64,7 @@ print(y_predict)
 
 # 결측치 처리 x
 
+
 def RMSE(y_test, y_predict):
     return np.sqrt(mean_squared_error(y_test, y_predict))
 rmse = RMSE(y_test, y_predict)
