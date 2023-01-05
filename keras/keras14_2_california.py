@@ -87,12 +87,9 @@ model.add(Dense(30))
 model.add(Dense(20))
 model.add(Dense(10))
 model.add(Dense(1))
-
 model.fit(x_train, y_train, epochs=1000, batch_size=500)
-
-
-
 r2:  0.5882458818645178
 """
+
 
 

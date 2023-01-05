@@ -41,7 +41,6 @@ model.add(Dense(3))
 model.add(Dense(1))
 
 
-
 #3. 컴파일, 훈련
 #loss = mae or mse optimizer= 'adam', matrix[mae or mse]
 model.compile(loss='mse', optimizer='adam',
@@ -69,6 +68,7 @@ print("R2 : ", r2)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y,
                         train_size=0.8, shuffle=True, random_state=123)
+
 
 model = Sequential()
 model.add(Dense(13, input_dim=13))
@@ -99,12 +99,8 @@ model.add(Dense(2))
 model.add(Dense(1))
 R2 :  0.6170848099202683
 
-
-
-
 x_train, x_test, y_train, y_test = train_test_split(x, y,
                         train_size=0.7, shuffle=True, random_state=115)
-
 model = Sequential()
 model.add(Dense(5, input_dim=13))
 model.add(Dense(30))
@@ -112,7 +108,6 @@ model.add(Dense(60))
 model.add(Dense(50))
 model.add(Dense(70))
 model.add(Dense(1))
-
 model.fit(x_train, y_train, epochs=400, batch_size=1)
 R2 :  0.6357098369174583
 

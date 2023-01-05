@@ -79,12 +79,12 @@ model.compile(loss='mae', optimizer='adam',
               metrics=['mse'])
 
 model.fit(x_train, y_train, epochs=200, batch_size=32)
-
 R2 :  0.6475770225494405
 R2 :  0.6381546354721448
 R2 :  0.6531883993086136
 R2 :  0.6522781600401861
 R2 :  0.6529517571902224
+
 
 """
 
