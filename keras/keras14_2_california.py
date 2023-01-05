@@ -36,9 +36,13 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 #3. 컴파일, 훈련
+import time
+start = time.time()
 model.compile(loss='mse', optimizer='adam', 
               metrics=['mae'])
-model.fit(x_train, y_train, epochs=1000, batch_size=500)
+model.fit(x_train, y_train, epochs=100, batch_size=500)
+end = time.time()
+print("걸린시간 : ", end - start)
 
 #4. 평가, 예측
 loss = model.evaluate(x_test, y_test)                           #   test 데이터로 평가
@@ -60,6 +64,8 @@ r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)      
 
 
+# cpu   걸린시간 :  4.880835056304932
+# gpu   걸린시간 :  15.709821224212646
 
 
 

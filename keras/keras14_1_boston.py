@@ -43,9 +43,17 @@ model.add(Dense(1))
 
 #3. 컴파일, 훈련
 #loss = mae or mse optimizer= 'adam', matrix[mae or mse]
+import time
+start = time.time()
 model.compile(loss='mse', optimizer='adam',
                 metrics=['mae'])
-model.fit(x_train, y_train, epochs=50000, batch_size=30)
+model.fit(x_train, y_train, epochs=100, batch_size=30)
+end = time.time()
+print('걸린시간 : ', end - start)
+# gpu 6.4
+# cpu 1.7
+
+
 #4. 평가, 예측
 # model.fit(x_train, y_train) epoch batch_size=32(default)
 # model.evaluate(x_test, y_test)

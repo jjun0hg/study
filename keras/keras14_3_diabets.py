@@ -33,11 +33,15 @@ model.add(Dense(5))
 model.add(Dense(1))
 
 # 3. 컴파일, 훈련
+import time
+start = time.time()
 model.compile(loss='mae', optimizer='adam', 
               metrics=['mse'])                                  #   metrics는 훈련에 영향을 미치진 않지만 값은 나온다.
                                                                 #   acc와 accuracy는 동일
                                                                 #   error가 그 다음 가중치 갱신을 할때 영향을 미친다.(훈련에 영향을 미친다.)
 model.fit(x_train, y_train, epochs=200, batch_size=32)           #   가중치 생성
+end = time.time()
+print("걸린시간 : ", end - start)
 
 # 4. 평가, 예측
 loss = model.evaluate(x_test, y_test)                           #   test 데이터로 평가
@@ -58,6 +62,9 @@ print("RMSE : ", RMSE(y_test, y_predict))
 r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)      
 
+
+# cpu   걸린시간 :  3.4434361457824707
+# gpu   걸린시간 :  11.109022855758667
 
 """
 결과
