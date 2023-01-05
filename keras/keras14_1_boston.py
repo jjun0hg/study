@@ -46,7 +46,7 @@ model.add(Dense(1))
 #loss = mae or mse optimizer= 'adam', matrix[mae or mse]
 model.compile(loss='mse', optimizer='adam',
                 metrics=['mae'])
-model.fit(x_train, y_train, epochs=5000, batch_size=30)
+model.fit(x_train, y_train, epochs=50000, batch_size=30)
 #4. 평가, 예측
 # model.fit(x_train, y_train) epoch batch_size=32(default)
 # model.evaluate(x_test, y_test)
@@ -115,6 +115,27 @@ model.add(Dense(1))
 
 model.fit(x_train, y_train, epochs=400, batch_size=1)
 R2 :  0.6357098369174583
+
+
+
+x_train, x_test, y_train, y_test = train_test_split(x, y,
+                        train_size=0.7, shuffle=True, random_state=115)
+
+model = Sequential()
+model.add(Dense(10, input_dim=13))
+model.add(Dense(5))
+model.add(Dense(10))
+model.add(Dense(20))
+model.add(Dense(10))
+model.add(Dense(10))
+model.add(Dense(10))
+model.add(Dense(10))
+model.add(Dense(5))
+model.add(Dense(3))
+model.add(Dense(1))
+model.fit(x_train, y_train, epochs=50000, batch_size=30)
+
+R2 :  0.7831901193099949
 """
 
 

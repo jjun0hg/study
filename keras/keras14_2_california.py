@@ -4,7 +4,6 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
 
 #1. 데이터
 datasets = fetch_california_housing()
