@@ -10,7 +10,7 @@ path = './_data/ddarung/'
 train_csv = pd.read_csv(path + 'train.csv', index_col=0)
 # train_csv = pd.read_csv('./_data/ddarung/train.csv', index_col=0)    # 원래 해야하는거, index_col=0 == 0번째는 데이터 아니다.
 test_csv = pd.read_csv(path + 'test.csv', index_col=0)
-submission = pd.read_csv(path + 'submission.csv', index_col=0)
+submission = pd.read_csv(path + 'submission.csv')
 
 print(train_csv)    #(1459, 10) , count는 y값이므로 제외해야한다. input_dim=9
 
@@ -52,7 +52,7 @@ model.add(Dense(1))
 #loss = mae or mse optimizer= 'adam', matrix[mae or mse]
 model.compile(loss='mse', optimizer='adam',
                 metrics=['mae'])
-model.fit(x_train, y_train, epochs=10, batch_size=32)
+model.fit(x_train, y_train, epochs=1, batch_size=32)
 
 #4. 평가, 예측
 

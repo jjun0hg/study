@@ -32,7 +32,7 @@ print(submission.shape)                 # (715, 1) //평가 데이터에도 결�
 
 
 
-x = train_csv.drop(['count'], axis=1)   # axis=축
+x = train_csv.drop(['count','registered'], axis=1)   # axis=축
 print(x)    #   [1459 rows x 9 columns]
 y = train_csv['count']
 print(y)
@@ -46,20 +46,24 @@ print(y_train.shape, y_test.shape)  #   (929,) (399,)
 #2. 모델구성
 model = Sequential()
 # model.add(Dense(36, input_dim=9))
-model.add(Dense(1000,input_dim=9))
-model.add(Dense(1000))
-model.add(Dense(1100))
-model.add(Dense(500))
-model.add(Dense(10))
+model.add(Dense(19,input_dim=8))
+model.add(Dense(15))
+model.add(Dense(17))
+model.add(Dense(19))
+model.add(Dense(15))
+model.add(Dense(13))
+model.add(Dense(11))
+model.add(Dense(11))
+model.add(Dense(11))
 model.add(Dense(1))
 
 #3. 컴파일, 훈련
 #loss = mae or mse optimizer= 'adam', matrix[mae or mse]
 import time
-model.compile(loss='mse', optimizer='adam',
-                metrics=['mae'])
+model.compile(loss='mae', optimizer='adam',
+                metrics=['mse'])
 start = time.time()
-model.fit(x_train, y_train, epochs=100, batch_size=16)
+model.fit(x_train, y_train, epochs=1, batch_size=7)
 end = time.time()
 print("걸린시간 : ", end - start)
 # cpu 걸린시간 :  51.54655790328979560
