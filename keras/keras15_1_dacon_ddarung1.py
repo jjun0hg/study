@@ -1,3 +1,4 @@
+# 결측치 처리 x
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import Sequential
@@ -61,9 +62,6 @@ print('loss : ', loss)
 
 y_predict = model.predict(x_test)
 print(y_predict)
-
-# 결측치 처리 x
-
 
 def RMSE(y_test, y_predict):
     return np.sqrt(mean_squared_error(y_test, y_predict))
