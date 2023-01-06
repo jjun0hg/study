@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 datasets = load_diabetes()
 x = datasets.data
 y = datasets.target
-x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.1)
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
 
 # print(x)
 # print(x.shape)  #(442, 10)
@@ -30,7 +30,7 @@ import time
 start = time.time()
 model.compile(loss='mae', optimizer='adam')
 model.fit(x_train, y_train, epochs=500, batch_size=32,
-          validation_split=0.5)
+          validation_split=0.3)
 end = time.time()
 print("걸린시간 : ", end - start)
 

@@ -10,7 +10,7 @@ datasets = fetch_california_housing()
 x = datasets.data
 y = datasets.target
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.3)
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
 
 # print(x)
 # print(x.shape)  #(20640, 8)
@@ -35,7 +35,7 @@ import time
 start = time.time()
 model.compile(loss='mae', optimizer='adam')
 model.fit(x_train, y_train, epochs=350, batch_size=32,
-          validation_split=0.5)
+          validation_split=0.25)
 end = time.time()
 print("걸린시간 : ", end - start)
 
