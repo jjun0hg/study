@@ -27,7 +27,12 @@ model.add(Dense(1, activation = 'linear'))
 import matplotlib.pyplot as plt
 
 model.compile(loss='mae', optimizer='adam')
-hist = model.fit(x_train, y_train, epochs=350, batch_size=32,
+from tensorflow.keras.callbacks import EarlyStopping
+earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
+                              patience=10, restore_best_weights=True,
+                              verbose=1) 
+
+hist = model.fit(x_train, y_train, epochs=500, batch_size=32,
               validation_split=0.25,
               verbose=1)
 plt.figure(figsize=(9,6))

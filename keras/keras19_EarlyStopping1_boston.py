@@ -17,24 +17,22 @@ x_train, x_test, y_train, y_test = train_test_split(
 
 #2. 모델구성
 model = Sequential()
-# model.add(Dense(5, input_dim=13))
 model.add(Dense(26, input_shape=(13,), activation='relu'))     # input_shape
 model.add(Dense(15, activation = 'relu'))
 model.add(Dense(10, activation = 'relu'))
 model.add(Dense(1, activation = 'linear'))
 
 #3. 컴파일, 훈련
-import time
+
 model.compile(loss='mae', optimizer = 'adam')
-hist = model.fit(x_train, y_train, epochs=300, batch_size=1,     # hist = history
-              validation_split=0.2,
-              verbose=1)        #   verbose =0 일때 속도가 더 빠르다. // verbose = 2 간략하게 보임(progress bar X) // verbose >=3 훈련 횟수만 보임
-print("===================================")              
-print(hist)                     #   <keras.callbacks.History object at 0x0000011656E1B610>     
-print("===================================")              
-print(hist.history)             #   key, value == dictionary,  value = list형태
-print("===================================")              
-print(hist.history['val_loss'])             #   key, value == dictionary,  value = list형태
+from tensorflow.keras.callbacks import EarlyStopping
+earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
+                              patience=30, restore_best_weights=True,
+                              verbose=1)       # loss == mode ='min'   // accuracy == mode ='auto'  //restore_best_weights의 defalut값은 False
+
+hist = model.fit(x_train, y_train, epochs=3000, batch_size=1,     
+                validation_split=0.2, callbacks=[earlyStopping], #   EarlyStopping 치명적 단점 == 끊은시점에 weight로 저장된다.
+                verbose=1)        #   verbose = 0 일때 속도가 더 빠르다. // verbose = 2 간략하게 보임(progress bar X) // verbose >=3 훈련 횟수만 보임
 
 import matplotlib.pyplot as plt
 plt.figure(figsize=(9,6))
@@ -67,4 +65,3 @@ print("R2 : ", r2)
 
 
 """
-
