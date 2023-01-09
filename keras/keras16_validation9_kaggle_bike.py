@@ -33,11 +33,9 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, tes
 
 #2. 모델구성
 model = Sequential()
-model.add(Dense(15, input_dim=8, activation='relu'))   
-model.add(Dense(19,input_dim=8))
-model.add(Dense(100, input_dim=10))
+model.add(Dense(32, input_dim=8, activation='relu'))   
+model.add(Dense(16, activation ='relu'))
 model.add(Dense(10, activation ='relu'))
-model.add(Dense(5, activation ='relu'))
 model.add(Dense(1, activation = 'linear'))
 
 #3. 컴파일, 훈련
@@ -45,8 +43,8 @@ model.add(Dense(1, activation = 'linear'))
 import time
 start = time.time()
 model.compile(loss='mae', optimizer='adam')
-model.fit(x_train, y_train, epochs=1, batch_size=32,
-          validation_split=0.25)
+model.fit(x_train, y_train, epochs=1000, batch_size=16,
+          validation_split=0.2)
 end = time.time()
 print("걸린시간 : ", end - start)
 
@@ -81,5 +79,6 @@ submission.to_csv(path +"submission_01061035.csv")
 
 
 RMSE :  156.32053757797001
+
 """
 
