@@ -21,15 +21,15 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, tes
 model = Sequential()
 model.add(Dense(100, input_dim=10, activation = 'relu'))
 model.add(Dense(90, activation='relu'))
-model.add(Dense(60,activation='relu'))
-model.add(Dense(10,activation='relu'))
+model.add(Dense(50,activation='relu'))
+model.add(Dense(5,activation='relu'))
 model.add(Dense(1, activation = 'linear'))
 
 # 3. 컴파일, 훈련
 import time
 start = time.time()
 model.compile(loss='mae', optimizer='adam')
-model.fit(x_train, y_train, epochs=500, batch_size=32,
+model.fit(x_train, y_train, epochs=100, batch_size=6,
           validation_split=0.3)
 end = time.time()
 print("걸린시간 : ", end - start)
