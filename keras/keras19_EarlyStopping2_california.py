@@ -62,9 +62,24 @@ print("R2 : ", r2)
 
 
 """
-
-
-
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
+model.add(Dense(10, input_shape=(8,), activation = 'relu'))
+model.add(Dense(20, activation ='relu'))
+model.add(Dense(30, activation ='relu'))
+model.add(Dense(40, activation ='relu'))
+model.add(Dense(20, activation ='relu'))
+model.add(Dense(10, activation ='relu'))
+model.add(Dense(10, activation ='relu'))
+model.add(Dense(1, activation = 'linear'))
+hist = model.fit(x_train, y_train, epochs=500, batch_size=32,
+                    validation_split=0.25,
+                    verbose=1)
+earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
+                              patience=10, restore_best_weights=True,
+                              verbose=1) 
+loss :  0.5092134475708008
+RMSE :  0.7064828922973457
+R2 :  0.6310516321982463
 """
 
 

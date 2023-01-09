@@ -25,12 +25,13 @@ x = train_csv.drop(['count','casual','registered'], axis=1)   # axis=축, x값�
 print(x.shape)    
 y = train_csv['count']
 print(y.shape)
-x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.3)
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
 
 #2. 모델구성
 model = Sequential()
 model.add(Dense(40, input_shape=(8,), activation='relu'))   
 model.add(Dense(20, activation ='relu'))
+model.add(Dense(15, activation ='relu'))
 model.add(Dense(10, activation ='relu'))
 model.add(Dense(2, activation ='relu'))
 model.add(Dense(1, activation = 'linear'))
@@ -41,10 +42,10 @@ import matplotlib.pyplot as plt
 model.compile(loss='mae', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping
 earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
-                              patience=10, restore_best_weights=True,
+                              patience=45, restore_best_weights=True,
                               verbose=1) 
-hist = model.fit(x_train, y_train, epochs=300, batch_size=32,
-          validation_split=0.2)
+hist = model.fit(x_train, y_train, epochs=10000, batch_size=32,
+          validation_split=0.25)
 plt.figure(figsize=(9,6))
 plt.plot(hist.history['loss'], c='red', marker='.', label='loss')          #list 형태는 그냥 넣어줘도됨
 plt.plot(hist.history['val_loss'], c='blue', marker='.', label='val_loss')
@@ -76,7 +77,7 @@ submission.to_csv(path +"submission_01061035.csv")
 
 
 """
-
+    
 
 
 """

@@ -23,7 +23,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, tes
 
 #2. 모델구성
 model = Sequential()
-model.add(Dense(18,input_shape=(9,)))
+model.add(Dense(27,input_shape=(9,)))
 model.add(Dense(10, activation ='relu'))
 model.add(Dense(5, activation ='relu'))
 model.add(Dense(1, activation = 'linear'))
@@ -34,9 +34,9 @@ import matplotlib.pyplot as plt
 model.compile(loss='mae', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping
 earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
-                              patience=10, restore_best_weights=True,
-                              verbose=1) 
-hist = model.fit(x_train, y_train, epochs=200, batch_size=32,
+                              patience=40, restore_best_weights=True,
+                              verbose=3) 
+hist = model.fit(x_train, y_train, epochs=10000, batch_size=32,
           validation_split=0.5)
 
 plt.figure(figsize=(9,6))
@@ -68,9 +68,36 @@ submission.to_csv(path +"submission_01050251.csv")
 
 
 """
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
+model = Sequential()
+model.add(Dense(18,input_shape=(9,)))
+model.add(Dense(10, activation ='relu'))
+model.add(Dense(5, activation ='relu'))
+model.add(Dense(1, activation = 'linear'))
 
+earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
+                              patience=50, restore_best_weights=True,
+                              verbose=3) 
+hist = model.fit(x_train, y_train, epochs=3000, batch_size=32,
+          validation_split=0.5)
+          
+loss :  36.06291198730469
+RMSE :  50.22144736245908
 
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
 
+model = Sequential()
+model.add(Dense(27,input_shape=(9,)))
+model.add(Dense(10, activation ='relu'))
+model.add(Dense(5, activation ='relu'))
+model.add(Dense(1, activation = 'linear'))
+earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
+                              patience=40, restore_best_weights=True,
+                              verbose=3) 
+hist = model.fit(x_train, y_train, epochs=10000, batch_size=32,
+          validation_split=0.5)
 
+loss :  30.965978622436523
+RMSE :  47.170773455217414
 """
 

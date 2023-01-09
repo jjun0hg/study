@@ -18,27 +18,25 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, tes
 # print(y.shape)  #(442, )
 
 # 2. 모델구성
+
 model = Sequential()
-model.add(Dense(100, input_shape=(10,), activation = 'relu'))
-model.add(Dense(90))
-model.add(Dense(90))
-model.add(Dense(90))
-model.add(Dense(8))
-model.add(Dense(7))
-model.add(Dense(6))
-model.add(Dense(5))
-model.add(Dense(1))
+model.add(Dense(100, input_shape=(10,), activation = 'linear'))
+model.add(Dense(50,activation = 'relu'))
+model.add(Dense(25, activation = 'relu'))
+model.add(Dense(10, activation = 'relu'))
+model.add(Dense(10, activation = 'relu'))
+model.add(Dense(1, activation = 'linear'))
 
 # 3. 컴파일, 훈련
-import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
 model.compile(loss='mae', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping
 earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
-                              patience=10, restore_best_weights=True,
+                              patience=45, restore_best_weights=True,
                               verbose=1) 
-hist = model.fit(x_train, y_train, epochs=500, batch_size=6,
-          validation_split=0.3)
+hist = model.fit(x_train, y_train, epochs=100000, batch_size=32,
+          validation_split=0.25)
 plt.figure(figsize=(9,6))
 plt.plot(hist.history['loss'], c='red', marker='.', label='loss')          #list 형태는 그냥 넣어줘도됨
 plt.plot(hist.history['val_loss'], c='blue', marker='.', label='val_loss')
@@ -66,6 +64,9 @@ print("R2 : ", r2)
 
 
 """
+
+
+
 
 """
 
