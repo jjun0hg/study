@@ -1,5 +1,4 @@
 # 이진분류
-
 from sklearn.datasets import load_breast_cancer
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
