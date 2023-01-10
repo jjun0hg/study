@@ -20,13 +20,3 @@ model.summary()
 # output shape(아키텍쳐 구조), param(아키텍쳐 연산량)
 # bias== 계산량에 포함된다.
 
-
-
-
-
-
-
-
-
-
-
