@@ -13,8 +13,9 @@ x = datasets.data
 y = datasets['target']
 print(x.shape, y.shape) # (1797, 64)    (1797, )    // 64 = 8*8*1(흑백)
 print(np.unique(y, return_counts=True))
-# (array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),       // y에 들어갈 칼럼은 하나지만 o_h encoding 하면 칼럼 10개로 늘어난다.
-#  array([178, 182, 177, 183, 181, 182, 181, 179, 174, 180], dtype=int64))          // 다중분류데이터(이미지 연산) // DNN방식
+#   (array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),       // y에 들어갈 칼럼은 하나지만 o_h encoding 하면 칼럼(열) 10개로 늘어난다.
+#   array([178, 182, 177, 183, 181, 182, 181, 179, 174, 180], dtype=int64))          // 다중분류데이터(이미지 연산) // DNN방식
+#   return_counts=True >> 각 숫자가 들어가는(나오는??) 횟수         // False 어떤 숫자가 나오는지
 
 # import matplotlib.pyplot as plt
 # plt.gray()
@@ -29,6 +30,7 @@ x_train, x_test, y_train, y_test = train_test_split(
     test_size=0.2,
     stratify=y 
 )
+print(y.shape)
 
 #2. 모델구성
 model = Sequential()
@@ -42,21 +44,22 @@ model.add(Dense(10, activation='softmax'))
 earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
                               patience=30, restore_best_weights=True,
                               verbose=1) 
-
+#3. 컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam',    # sparse_categorical_crossentropy 로 변경해도 가능
               metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=1500, batch_size=32,
+model.fit(x_train, y_train, epochs=100, batch_size=32,
           callbacks=[earlyStopping],
           validation_split=0.2,
           verbose=1)
 
+#4. 평가, 검증
 y_predict =  model.predict(x_test)
 # print(y_predict)
 y_predict = np.argmax(y_predict, axis = 1)                 
-print("y_pred(예측값) : ", y_predict[:5])
+print("y_pred(예측값) : ", y_predict)
 
 y_test = np.argmax(y_test, axis=1)
-print("y_test(원래값) : ", y_test[:5])
+print("y_test(원래값) : ", y_test)
 
 acc = accuracy_score(y_test, y_predict)
 print(acc)

@@ -9,7 +9,6 @@ from sklearn.model_selection import train_test_split
 datasets = load_wine()
 x = datasets.data
 y = datasets.target
-
 print(x.shape, y.shape)    #   (178, 13) (178,)
 # print(y)
 print(np.unique(y))            # 라벨의 unique 한 값 //  y는[0 1 2]만 있다.
@@ -46,6 +45,7 @@ model.fit(x_train, y_train, epochs=1500, batch_size=32,
           validation_split=0.2,
           verbose=1)
 
+#4. 평가, 검증
 from sklearn.metrics import accuracy_score
 import numpy as np
 
