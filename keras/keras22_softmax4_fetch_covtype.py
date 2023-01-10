@@ -1,4 +1,4 @@
-
+# 다중분류
 import numpy as np
 from sklearn.datasets import fetch_covtype
 from tensorflow.keras.models import Sequential
@@ -20,8 +20,8 @@ print(y.shape)
 
 ###################################################인코딩##############################################################
 # get_dummies       // .values or numpy 로 변환
-# y = pd.get_dummies(y, drop_first=False)
-# y = np.array(y)
+y = pd.get_dummies(y, drop_first=False)
+y = np.array(y)
 
 # to_categorical
 # y = to_categorical(y)
@@ -55,8 +55,8 @@ x_train, x_test, y_train, y_test = train_test_split(
 
 #2. 모델구성
 model = Sequential()
-model.add(Dense(50, activation='relu', input_shape=(54,)))
-model.add(Dense(40, activation='relu'))
+model.add(Dense(100, activation='relu', input_shape=(54,)))
+model.add(Dense(50, activation='relu'))
 model.add(Dense(30, activation='relu'))
 model.add(Dense(20, activation='relu'))
 model.add(Dense(10, activation='linear'))
@@ -68,11 +68,12 @@ earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
 #3. 컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam',    # sparse_categorical_crossentropy 로 변경해도 가능
               metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=1, batch_size=64,
+model.fit(x_train, y_train, epochs=100000, batch_size=64,
           callbacks=[earlyStopping],
           validation_split=0.2,
           verbose=1)
-print(type(y))
+              
+# print(type(y))
 #4. 평가, 검증
 y_predict =  model.predict(x_test)
 # print(y_predict)

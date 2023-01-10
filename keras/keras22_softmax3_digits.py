@@ -1,3 +1,4 @@
+# 다중분류
 import numpy as np
 from sklearn.datasets import load_digits
 from tensorflow.keras.models import Sequential

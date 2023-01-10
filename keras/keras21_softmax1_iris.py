@@ -1,3 +1,4 @@
+# 다중분류
 from sklearn.datasets import load_iris
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

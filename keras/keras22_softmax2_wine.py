@@ -1,4 +1,4 @@
-# 와인을 감정하는 데이터
+# 와인을 감정하는 데이터 //     # 다중분류 
 import numpy as np
 from sklearn.datasets import load_wine
 from tensorflow.keras.models import Sequential
