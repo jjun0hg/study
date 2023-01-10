@@ -41,7 +41,7 @@ plt.plot(hist.history['val_loss'], c='blue', marker='.', label='val_loss')
 plt.grid()          
 plt.xlabel('epochs')
 plt.ylabel('loss')
-plt.title('boston loss')
+plt.title('보스톤 로스')
 plt.legend(loc='upper left')
 plt.show()
 

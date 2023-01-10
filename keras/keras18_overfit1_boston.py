@@ -16,11 +16,6 @@ import matplotlib as mpl
 from matplotlib import font_manager, rc
 print('ㅇㅇ : ', mpl.get_cachedir())
 
-
-
-
-
-
 #1. 데이터
 datasets = load_boston()
 x = datasets.data
@@ -59,10 +54,9 @@ plt.plot(hist.history['val_loss'], c='blue', marker='.', label='val_loss')
 plt.grid()          
 plt.xlabel('epochs')
 plt.ylabel('loss')
-plt.title('보스톤')
+plt.title('보스톤 손실함수')
 plt.legend(loc='upper left')
 plt.show()
-
 
 
 #4. 평가, 예측
