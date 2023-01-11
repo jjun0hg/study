@@ -8,6 +8,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 #1. 데이터
 path = './_data/ddarung/'
+# path = '../_data/ddarung/'
+# path = 'c:/study/_data/ddarung/'
 train_csv = pd.read_csv(path + 'train.csv', index_col=0)    # train_csv = pd.read_csv('./_data/ddarung/train.csv', index_col=0)==원래 해야하는거// index_col=0 == 0번째는 데이터 아니다.
 test_csv = pd.read_csv(path + 'test.csv', index_col=0)
 submission = pd.read_csv(path + 'submission.csv', index_col=0)
