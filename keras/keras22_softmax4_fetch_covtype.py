@@ -20,13 +20,15 @@ print(y.shape)
 
 ###################################################인코딩##############################################################
 # get_dummies       // .values or numpy 로 변환
-y = pd.get_dummies(y, drop_first=False)
-y = np.array(y)
+# y = pd.get_dummies(y, drop_first=False)
+# y = np.array(y)
 
 # to_categorical
-# y = to_categorical(y)
-# y = np.delete(y, 0, axis=1)
-
+y = to_categorical(y)
+print(type(y))
+# print(y[:10])
+# print(np.unique(y[:,0], return_counts=True))            # 모든 행의 0번째
+y = np.delete(y, 0, axis=1)
 
 # OneHotEncoder     // sparse=True default ==> Matrix 반환 // array가 필요하므로 False // .toarray()
 # Ohe = OneHotEncoder(sparse=False)
@@ -63,12 +65,12 @@ model.add(Dense(10, activation='linear'))
 model.add(Dense(7, activation='softmax'))       # 열은 하나인데 칼럼 7개
 
 earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
-                              patience=30, restore_best_weights=True,
+                              patience=45, restore_best_weights=True,
                               verbose=1) 
 #3. 컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam',    # sparse_categorical_crossentropy 로 변경해도 가능
               metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=100000, batch_size=64,
+model.fit(x_train, y_train, epochs=1000, batch_size=64,
           callbacks=[earlyStopping],
           validation_split=0.2,
           verbose=1)
@@ -78,11 +80,12 @@ model.fit(x_train, y_train, epochs=100000, batch_size=64,
 y_predict =  model.predict(x_test)
 # print(y_predict)
 y_predict = np.argmax(y_predict, axis = 1)                 
-print("y_pred(예측값) : ", y_predict)
+print("y_pred(예측값) : ", y_predict[:20])
 
 y_test = np.argmax(y_test , axis=1)
-print("y_test(원래값) : ", y_test)
+print("y_test(원래값) : ", y_test[:20])
 
 acc = accuracy_score(y_test, y_predict)
-print(acc)
+print(acc)      #0.8686264554271405
+
 
