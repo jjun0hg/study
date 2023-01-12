@@ -1,0 +1,82 @@
+# 이진분류      // softmax
+from sklearn.datasets import load_breast_cancer
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Dense, Input
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+import pandas as pd
+from sklearn.metrics import accuracy_score
+
+#1. 데이터
+datasets = load_breast_cancer()
+# print(datasets)
+# print(datasets.feature_names)
+x = datasets['data']
+y = datasets['target']
+# print(x.shape, y.shape)     #   (569, 30) (569,)
+
+y = pd.get_dummies(y, drop_first=False)
+y = np.array(y)
+
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, shuffle = True, 
+    random_state=333, test_size=0.2, stratify=y )
+
+scaler = MinMaxScaler()
+# scaler =StandardScaler()
+# scaler.fit(x_train)
+# x_train = scaler.transform(x_train)
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
+
+# #2. 모델구성
+# model = Sequential()
+# model.add(Dense(50, activation='linear', input_shape=(30,)))
+# model.add(Dense(40, activation='relu'))
+# model.add(Dense(30, activation='relu'))
+# model.add(Dense(10, activation='relu'))
+# model.add(Dense(2, activation='softmax'))       # 0~1 사이의 값 출력
+
+input1  = Input(shape=(30,))
+dense1 = Dense(50, activation = 'linear')(input1)
+dense2 = Dense(40, activation = 'relu')(dense1)
+dense3 = Dense(30, activation = 'relu')(dense2)
+dense4 = Dense(10, activation = 'relu')(dense3)
+output1 = Dense(2, activation = 'softmax')(dense4)
+model = Model(inputs=input1, outputs=output1)
+
+#3.컴파일, 훈련
+model.compile(loss='categorical_crossentropy', optimizer='adam',    # sparse_categorical_crossentropy 로 변경해도 가능
+              metrics=['accuracy'])
+from tensorflow.keras.callbacks import EarlyStopping
+earlyStopping = EarlyStopping(monitor='val_loss',
+                              mode='min',
+                              patience=45,
+                              restore_best_weights=True,
+                              verbose=1)
+ 
+model.fit(x_train, y_train, epochs=10000, batch_size=32,
+          validation_split=0.2,
+          callbacks=[earlyStopping],
+          verbose=1)
+
+#4. 평가, 예측
+# loss = model.evaluate(x_test, y_test)
+# print('loss, accuracy : ', loss)
+loss, accuracy = model.evaluate(x_test, y_test)
+print('loss : ', loss)
+print('accuracy :', accuracy)
+y_predict =  model.predict(x_test)
+# print(y_predict)
+y_predict = np.argmax(y_predict, axis = 1)                 
+print("y_pred(예측값) : ", y_predict)
+
+y_test = np.argmax(y_test , axis=1)
+print("y_test(원래값) : ", y_test)
+
+acc = accuracy_score(y_test, y_predict)
+print(acc)      #   0.9473684210526315
+
+
