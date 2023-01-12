@@ -27,7 +27,7 @@ print(y.shape)
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, shuffle = True, 
-    random_state=6533, test_size=0.1)
+    random_state=123, test_size=0.1)
 
 scaler = MinMaxScaler()
 # scaler =StandardScaler()
@@ -89,7 +89,8 @@ submission.to_csv(path +"submission_01061035.csv")
 
 
 """
-    
+
+
 
 
 """
