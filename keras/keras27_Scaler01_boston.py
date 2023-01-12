@@ -21,13 +21,12 @@ x_train, x_test, y_train, y_test = train_test_split(
     x, y, shuffle = True, 
     random_state=333, test_size=0.2)
 
-scaler = MinMaxScaler()
-# scaler =StandardScaler()
-# scaler.fit(x_train)
-# x_train = scaler.transform(x_train)
-x_train = scaler.fit_transform(x_train)
-# x_test = scaler.transform(x_test)
-x_test = scaler.fit_transform(x_test)
+# scaler = MinMaxScaler()
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train = scaler.transform(x_train)
+# x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
 
 # print(np.min(x))
 # print(np.max(x))
@@ -45,7 +44,13 @@ model.add(Dense(1, activation = 'linear'))
 
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
+from tensorflow.keras.callbacks import EarlyStopping
+earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
+                              patience=45, restore_best_weights=True,
+                              verbose=1) 
+
 model.fit(x_train, y_train, epochs=800, batch_size=32,
+          callbacks=[earlyStopping],
           validation_split=0.25)
 
 #4. 평가, 예측
@@ -69,7 +74,7 @@ print("R2 : ", r2)
 개선 전  R2 :  0.7276881435330604
 개선 후 (minmax)  R2 :  0.7575389404015904
 개선 후 (standard scaler)  R2 :  0.7637876692969494
-R2 :  0.7490650147812239
+R2 :  0.7596036945677669
 
 
 """

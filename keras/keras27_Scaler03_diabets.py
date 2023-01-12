@@ -15,7 +15,7 @@ y = datasets['target']
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, shuffle = True, 
-    random_state=333, test_size=0.2)
+    random_state=333, test_size=0.25)
 
 
 scaler = MinMaxScaler()
@@ -23,23 +23,31 @@ scaler = MinMaxScaler()
 # scaler.fit(x_train)
 # x_train = scaler.transform(x_train)
 x_train = scaler.fit_transform(x_train)
-# x_test = scaler.transform(x_test)
-x_test = scaler.fit_transform(x_test)
+x_test = scaler.transform(x_test)
+
 
 # 2. 모델구성
 model = Sequential()
-model.add(Dense(100, input_shape=(10,), activation = 'relu'))
+model.add(Dense(200, input_shape=(10,), activation = 'relu'))
 model.add(Dense(90, activation='relu'))
 model.add(Dense(50,activation='relu'))
-model.add(Dense(5,activation='relu'))
+model.add(Dense(8,activation='relu'))
 model.add(Dense(1, activation = 'linear'))
 
 # 3. 컴파일, 훈련
 import matplotlib.pyplot as plt
+from tensorflow.keras.callbacks import EarlyStopping
 
+earlyStopping = EarlyStopping(monitor='val_loss',
+                              mode='min',
+                              patience=200,
+                              restore_best_weights=True,
+                              verbose=1) 
 model.compile(loss='mae', optimizer='adam')
-hist = model.fit(x_train, y_train, epochs=100, batch_size=6,
-          validation_split=0.3)
+hist = model.fit(x_train, y_train, epochs=1000, batch_size=6,
+                callbacks=[earlyStopping],
+                validation_split=0.2)
+
 plt.figure(figsize=(9,6))
 plt.plot(hist.history['loss'], c='red', marker='.', label='loss')          #list 형태는 그냥 넣어줘도됨
 plt.plot(hist.history['val_loss'], c='blue', marker='.', label='val_loss')
@@ -65,10 +73,11 @@ r2 = r2_score(y_test, y_predict)
 print("R2 : ", r2)      
 
 
-
 """
-loss :  46.83203125
-RMSE :  59.94074423086517
-R2 :  0.32233924453448426
+
+loss :  45.794742584228516
+RMSE :  56.93880086620233
+R2 :  0.42097249144023086
+
 """
 

@@ -22,15 +22,14 @@ y = np.array(y)
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, shuffle = True, 
-    random_state=333, test_size=0.2)
+    random_state=333, test_size=0.2, stratify=y )
 
 scaler = MinMaxScaler()
 # scaler =StandardScaler()
 # scaler.fit(x_train)
 # x_train = scaler.transform(x_train)
 x_train = scaler.fit_transform(x_train)
-# x_test = scaler.transform(x_test)
-x_test = scaler.fit_transform(x_test)
+x_test = scaler.transform(x_test)
 
 #2. 모델구성
 model = Sequential()
@@ -43,24 +42,17 @@ model.add(Dense(2, activation='softmax'))       # 0~1 사이의 값 출력
 #3.컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam',    # sparse_categorical_crossentropy 로 변경해도 가능
               metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=1000, batch_size=64,
-          validation_split=0.2,
-          verbose=1)
 from tensorflow.keras.callbacks import EarlyStopping
 earlyStopping = EarlyStopping(monitor='val_loss',
                               mode='min',
-                              patience=30,
+                              patience=45,
                               restore_best_weights=True,
-                              verbose=1) 
-
-x_train, x_test, y_train, y_test = train_test_split(
-    x,y, shuffle=True, random_state=333, test_size=0.2
-)
-model.fit(x_train, y_train, epochs = 1000, batch_size=32,
+                              verbose=1)
+ 
+model.fit(x_train, y_train, epochs=10000, batch_size=32,
           validation_split=0.2,
-          callbacks = [earlyStopping],
-          verbose = 1)
-
+          callbacks=[earlyStopping],
+          verbose=1)
 
 #4. 평가, 예측
 # loss = model.evaluate(x_test, y_test)
@@ -77,6 +69,6 @@ y_test = np.argmax(y_test , axis=1)
 print("y_test(원래값) : ", y_test)
 
 acc = accuracy_score(y_test, y_predict)
-print(acc)      #   0.9736842105263158
+print(acc)      #   0.9385964912280702
 
 

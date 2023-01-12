@@ -22,8 +22,7 @@ scaler = MinMaxScaler()
 # scaler.fit(x_train)
 # x_train = scaler.transform(x_train)
 x_train = scaler.fit_transform(x_train)
-# x_test = scaler.transform(x_test)
-x_test = scaler.fit_transform(x_test)
+x_test = scaler.transform(x_test)
 
 
 #2. 모델구성
@@ -40,9 +39,14 @@ model.add(Dense(1, activation = 'linear'))
 #3. 컴파일, 훈련
 import matplotlib.pyplot as plt
 
+from tensorflow.keras.callbacks import EarlyStopping
+earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
+                              patience=45, restore_best_weights=True,
+                              verbose=1) 
 model.compile(loss='mae', optimizer='adam')
 hist = model.fit(x_train, y_train, epochs=350, batch_size=32,
               validation_split=0.25,
+              callbacks=[earlyStopping],
               verbose=1)
 plt.figure(figsize=(9,6))
 plt.plot(hist.history['loss'], c='red', marker='.', label='loss')          #list 형태는 그냥 넣어줘도됨
@@ -72,9 +76,9 @@ print("R2 : ", r2)
 
 """
 
-loss :  0.559097170829773
-RMSE :  0.7916822342276376
-R2 :  0.5080672188712825
+loss :  0.33160167932510376
+RMSE :  0.5208093280889106
+R2 :  0.7871069550378982
 
 """
 

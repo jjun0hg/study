@@ -34,8 +34,8 @@ scaler = MinMaxScaler()
 # scaler.fit(x_train)
 # x_train = scaler.transform(x_train)
 x_train = scaler.fit_transform(x_train)
-# x_test = scaler.transform(x_test)
-x_test = scaler.fit_transform(x_test)
+x_test = scaler.transform(x_test)
+test_csv = scaler.transform(test_csv)
 
 #2. 모델구성
 model = Sequential()
@@ -52,11 +52,12 @@ import matplotlib.pyplot as plt
 model.compile(loss='mae', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping
 earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
-                              patience=45, restore_best_weights=True,
+                              patience=30, restore_best_weights=True,
                               verbose=1) 
 hist = model.fit(x_train, y_train, epochs=10000, batch_size=32,
                 callbacks=[earlyStopping],
                 validation_split=0.25)
+
 plt.figure(figsize=(9,6))
 plt.plot(hist.history['loss'], c='red', marker='.', label='loss')          #list 형태는 그냥 넣어줘도됨
 plt.plot(hist.history['val_loss'], c='blue', marker='.', label='val_loss')
@@ -71,7 +72,6 @@ plt.show()
 loss = model.evaluate(x_test, y_test)
 print('loss : ', loss)
 y_predict = model.predict(x_test)
-
 # 결측치 처리 x
 
 def RMSE(y_test, y_predict):
