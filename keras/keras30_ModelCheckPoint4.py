@@ -55,7 +55,6 @@ date = date.strftime("%m%d_%H%M")                           # 0112_1457
 filepath = './_save/MCP/'
 filename = '{epoch:04d}-{val_loss:.4f}.hdf5'                # [{epoch:04d} =epoch100 == 0100] - [{val_loss:.4f}= 소수4째자리] // 0037-0.0048.hdf5
 
-
 mcp = ModelCheckpoint(monitor='val_loss', mode = 'auto', verbose = 1,
                       save_best_only=True,
                 #      filepath = path + 'MCP/keras30_ModelCheckPoint3.hdf5')
@@ -66,7 +65,7 @@ model.fit(x_train, y_train, epochs=300, batch_size=8,
           callbacks=[es,mcp],verbose=1,
           validation_split=0.25)
 
-model.save(path + "keras30_ModelCheckPoint3_save_model.h5")
+# model.save(path + "keras30_ModelCheckPoint3_save_model.h5")
 
 #4. 평가, 예측
 print("=====================1. 기본 출력 ========================")
