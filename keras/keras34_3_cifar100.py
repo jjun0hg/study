@@ -5,6 +5,8 @@ import numpy as np
 (x_train, y_train), (x_test, y_test) = cifar100.load_data()
 print(x_train.shape, y_train.shape) #   (50000, 32, 32, 3) (50000, 1)
 print(x_test.shape, y_test.shape)   #   (10000, 32, 32, 3) (10000, 1)
+x_train = x_train / 255
+x_test = x_test / 255
 
 print(np.unique(y_train, return_counts = True))     
 #       (array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
@@ -37,7 +39,7 @@ model.add(layers.MaxPooling2D((2, 2)))
 model.add(Conv2D(128, (3,3), activation='relu'))                                #(25, 25, 64)
 model.add(layers.MaxPooling2D((2, 2)))              
 model.add(Conv2D(64, (2,2), activation='relu'))                                #(25, 25, 64)
-model.add(Flatten())                                            # 40000
+model.add(Flatten())                                           # 40000
 model.add(Dense(32, activation = 'relu'))                      # input_shape(40000,) //(60000,40000)// (batch_size, input_dim)
 model.add(Dense(100, activation = 'softmax'))                  
 
@@ -69,5 +71,5 @@ result = model.evaluate(x_test, y_test)
 print('loss : ', result[0])
 print('acc : ', result[1])
 
-# loss :  3.0707948207855225
-# acc :  0.2524000108242035
+# loss :  2.556501865386963
+# acc :  0.353300005197525

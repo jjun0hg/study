@@ -7,6 +7,9 @@ from tensorflow.keras import layers
 print(x_train.shape, y_train.shape) #   (50000, 32, 32, 3) (50000, 1)
 print(x_test.shape, y_test.shape)   #   (10000, 32, 32, 3) (10000, 1)
 
+x_train = x_train / 255
+x_test = x_test / 255
+
 print(np.unique(y_train, return_counts = True))     
 # (array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], dtype=uint8), array([5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 5000],       dtype=int64))
 from tensorflow.keras.models import Sequential
@@ -58,7 +61,8 @@ print('loss : ', result[0])
 print('acc : ', result[1])
 
 
-"""model = Sequential()
+"""
+model = Sequential()
 model.add(Conv2D(256, (3,3), input_shape=(32,32,3),         #(32, 32, 3)
                 padding="same",  
                 use_bias=True,            
@@ -75,7 +79,8 @@ model.fit(x_train, y_train, epochs=250,
             verbose= 1, 
             batch_size=250,
             validation_split=0.2,
-            callbacks=[es,mcp])"""
-            
+            callbacks=[es,mcp])
+"""
+
 # loss :  1.0665079355239868
 # acc :  0.6672999858856201
