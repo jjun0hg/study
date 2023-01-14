@@ -10,7 +10,8 @@ path = './_data/ddarung/'
 train_csv = pd.read_csv(path + 'train.csv', index_col=0)    # train_csv = pd.read_csv('./_data/ddarung/train.csv', index_col=0)==원래 해야하는거// index_col=0 == 0번째는 데이터 아니다.
 test_csv = pd.read_csv(path + 'test.csv', index_col=0)
 submission = pd.read_csv(path + 'submission.csv', index_col=0)
-
+print(train_csv.shape)
+print(test_csv.shape)
 # print(train_csv.info())     
 # print(test_csv.info())
 # print(train_csv.describe()) 
@@ -29,8 +30,8 @@ y = train_csv['count']
 # print(y.shape)  
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
 
-# print(x_train.shape, x_test.shape)  #   (929, 9) (399, 9)
-# print(y_train.shape, y_test.shape)  #   (929,) (399,)
+print(x_train.shape, x_test.shape)  #   (929, 9) (399, 9)
+print(y_train.shape, y_test.shape)  #   (929,) (399,)
 
 #2. 모델구성
 model = Sequential()
@@ -44,7 +45,7 @@ model.add(Dense(1, activation = 'linear'))
 import time
 start = time.time()
 model.compile(loss='mae', optimizer='adam')
-model.fit(x_train, y_train, epochs=100, batch_size=32,
+model.fit(x_train, y_train, epochs=100000, batch_size=32,
           validation_split=0.5)
 end = time.time()
 print("걸린시간 : ", end - start)
@@ -61,9 +62,7 @@ y_predict = model.predict(x_test)
 def RMSE(y_test, y_predict):
     return np.sqrt(mean_squared_error(y_test, y_predict))
 rmse = RMSE(y_test, y_predict)
-print("RMSE : ", rmse)  # RMSE :  83.02001881026747
-                        # RMSE :  53.88971756086701
-                        
+print("RMSE : ", rmse)  
 # submission.to_csv(path +"submission_0105.csv", mode='w')
 
 # 제출
@@ -82,9 +81,16 @@ submission.to_csv(path +"submission_01050251.csv")
 """
 
 
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
+model = Sequential()
+model.add(Dense(19,input_dim=9))
+model.add(Dense(10, activation ='relu'))
+model.add(Dense(5, activation ='relu'))
+model.add(Dense(1, activation = 'linear'))
 
-
-RMSE :  50.98109583422131
+model.fit(x_train, y_train, epochs=15000, batch_size=32,
+          validation_split=0.5)
+RMSE :  47.92793374901098
 
 """
 
