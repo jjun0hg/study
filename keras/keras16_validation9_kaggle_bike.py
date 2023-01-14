@@ -29,12 +29,18 @@ print(y.shape)
 #print(y.shape)  
 # print(x_train.shape, x_test.shape)  
 # print(y_train.shape, y_test.shape)  
-x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.3)
 
 #2. 모델구성
 model = Sequential()
+<<<<<<< Updated upstream
 model.add(Dense(32, input_dim=8, activation='relu'))   
 model.add(Dense(16, activation ='relu'))
+=======
+model.add(Dense(24, input_dim=8, activation='linear'))   
+model.add(Dense(20, input_dim=8, activation='linear'))   
+model.add(Dense(13, activation ='relu'))
+>>>>>>> Stashed changes
 model.add(Dense(10, activation ='relu'))
 model.add(Dense(1, activation = 'linear'))
 
@@ -43,8 +49,13 @@ model.add(Dense(1, activation = 'linear'))
 import time
 start = time.time()
 model.compile(loss='mae', optimizer='adam')
+<<<<<<< Updated upstream
 model.fit(x_train, y_train, epochs=1000, batch_size=16,
           validation_split=0.2)
+=======
+model.fit(x_train, y_train, epochs=10, batch_size=32,
+          validation_split=0.4)
+>>>>>>> Stashed changes
 end = time.time()
 print("걸린시간 : ", end - start)
 
