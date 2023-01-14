@@ -3,7 +3,7 @@ import tensorflow as tf
 print(tf.__version__)
 import numpy as np
 # import numpy
-
+#########################
 #1. 데이터
 x = np.array([1,2,3])
 y = np.array([1,2,3])

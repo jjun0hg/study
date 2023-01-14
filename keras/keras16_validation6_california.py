@@ -12,12 +12,12 @@ y = datasets.target
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=1234, test_size=0.2)
 
-# print(x)
-# print(x.shape)  #(20640, 8)
-# print(y)
-# print(y.shape)  #(20640, )
-#print(datasets.feature_names)    #['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude'] .. _california_housing_dataset:
-#print(datasets.DESCR)
+print(x)
+print(x.shape)  #(20640, 8)
+print(y)
+print(y.shape)  #(20640, )
+print(datasets.feature_names)    #['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude'] .. _california_housing_dataset:
+print(datasets.DESCR)
 
 #2. 모델구성
 model = Sequential()

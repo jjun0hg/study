@@ -11,8 +11,8 @@ x_train, x_test, y_train, y_test = train_test_split(
     x, y, 
     train_size = 0.7, 
     # test_size = 0.3, 
-    shuffle=True,                                   #False일 경우 test1, 2와 동일한 결과, shuffle작성하지 않으면 True로 default 되어있다.   
-    random_state=123    
+    shuffle=True,                                  #False일 경우 test1, 2와 동일한 결과, shuffle작성하지 않으면 True로 default 되어있다.   
+    random_state=714    
 )
 
 print('x_train : ', x_train)
@@ -29,15 +29,8 @@ print('y_test : ', y_test)
 
 #2. 모델구성
 model = Sequential()
-model.add(Dense(50, input_dim=1))
+model.add(Dense(10, input_dim=1))
 model.add(Dense(100))
-model.add(Dense(150))
-model.add(Dense(190))
-model.add(Dense(300))
-model.add(Dense(120))
-model.add(Dense(80))
-model.add(Dense(30))
-model.add(Dense(15))
 model.add(Dense(1))
 
 #3. 컴파일, 훈련

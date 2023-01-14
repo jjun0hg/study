@@ -9,8 +9,12 @@ x = np.array(range(1,21))
 y = np.array([1,2,4,3,5,7,9,3,8,12,13,8,14,15,9,6,17,23,21,20])
 
 x_train, x_test, y_train, y_test = train_test_split(x, y,
-    train_size=0.7, shuffle=True, random_state=123    
+    train_size=0.7, shuffle=True    
 )
+print(x_train)
+print(x_test)
+print(y_train)
+print(y_test)
 
 #2. 모델구성
 model = Sequential()
@@ -24,7 +28,7 @@ model.compile(loss='mse', optimizer='adam',
               metrics=['mae'])                                  #   metrics는 훈련에 영향을 미치진 않지만 값은 나온다.
                                                                 #   acc와 accuracy는 동일
                                                                 #   error가 그 다음 가중치 갱신을 할때 영향을 미친다.(훈련에 영향을 미친다.)
-model.fit(x_train, y_train, epochs=200, batch_size=1)           #   가중치 생성
+model.fit(x_train, y_train, epochs=100, batch_size=1)           #   가중치 생성
 
 #4. 평가, 예측
 loss = model.evaluate(x_test, y_test)                           #   test 데이터로 평가

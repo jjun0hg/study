@@ -6,7 +6,7 @@ from tensorflow.keras.layers import Dense
 #1. 데이터
 x = np.array([1,2,3,4,5,6])     # 전체작업을 할지 부분(batch)을 나눠서 작업을 할지
 y = np.array([1,2,3,5,4,6])
-
+print(x.shape)
 #2. 모델구성
 model = Sequential()
 model.add(Dense(3, input_dim=1))
