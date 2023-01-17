@@ -60,7 +60,7 @@ mcp = ModelCheckpoint(monitor='val_loss', mode = 'auto', verbose = 1,
                       save_best_only=True,
                 #      filepath = path + 'MCP/keras30_ModelCheckPoint3.hdf5')
                       filepath = filepath + 'k34_03_' + date +'_'+ filename)
-model.fit(x_train, y_train, epochs=250, 
+model.fit(x_train, y_train, epochs=1000, 
             verbose= 1, 
             batch_size=250,
             validation_split=0.2,
