@@ -12,8 +12,6 @@ print(x_test.shape, y_test.shape)   #   (10000, 32, 32, 3) (10000, 1)
 model = Sequential()
 model.add(Conv2D(256, (3,3), input_shape=(32,32,3),         #(32, 32, 3)
                 padding="same",  
-                use_bias=True,            
-                kernel_initializer="random_normal",
                 activation='relu'))                            #(27, 27, 128) 
 model.add(MaxPooling2D())        
 model.add(Conv2D(128, (3,3), activation='relu'))               #(26, 26, 64)
@@ -26,12 +24,10 @@ model.add(Dense(10, activation = 'softmax'))
 model = Sequential()
 model.add(Conv2D(256, (3,3), input_shape=(32,32,3),         #(32, 32, 3)
                 padding="same",  
-                use_bias=True,            
-                kernel_initializer="random_normal",
+                strides= 2,
                 activation='relu'))                            #(27, 27, 128) 
 model.add(MaxPooling2D()) 
 model.add(Conv2D(128, (3,3), activation='relu'))               #(26, 26, 64)
-model.add(layers.MaxPooling2D((2, 2)))              
 model.add(Conv2D(64, (3,3), activation='relu'))                                #(25, 25, 64)
 model.add(Flatten())                                            # 40000
 model.add(Dense(32, activation = 'relu'))                      # input_shape(40000,) //(60000,40000)// (batch_size, input_dim)

@@ -22,6 +22,7 @@ print(np.unique(y_train, return_counts = True))
 model = Sequential()
 model.add(Conv2D(128, (3,3), input_shape=(28,28,1),         #(28, 28, 128)
                 padding='same',     # valid      
+                strides= 2,
                 activation='relu'))                        
 model.add(MaxPooling2D())                                   #(14, 14, 128)
 model.add(Conv2D(64, (2,2), padding='same'))                #(28, 28, 64)
@@ -60,4 +61,4 @@ result = model.evaluate(x_test, y_test)
 print('loss : ', result[0])
 print('acc : ', result[1])
 
-# 
+# acc :  0.9779999852180481

@@ -23,6 +23,7 @@ from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D
 model = Sequential()
 model.add(Conv2D(128, (3,3), input_shape=(28,28,1),         #(28, 28, 128)
                 padding='same',     # valid      
+                strides= 2,
                 activation='relu'))                        
 model.add(MaxPooling2D())                                   #(14, 14, 128)
 model.add(Conv2D(64, (2,2), padding='same'))                #(28, 28, 64)
