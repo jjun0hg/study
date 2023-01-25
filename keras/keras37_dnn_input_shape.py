@@ -6,8 +6,8 @@ from tensorflow.keras.datasets import mnist
 #1. 데이터
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
-print(x_train.shape, y_train.shape) #   (60000, 28, 28) (60000,)
-print(x_test.shape, y_test.shape) #   (10000, 28, 28) (10000,)
+# print(x_train.shape, y_train.shape) #   (60000, 28, 28) (60000,)
+# print(x_test.shape, y_test.shape) #   (10000, 28, 28) (10000,)
 
 x_train = x_train/255.
 x_test = x_test/255.
@@ -48,7 +48,6 @@ filepath = './_save/MCP/'
 filename = '{epoch:04d}-{val_loss:.4f}.hdf5'
 mcp = ModelCheckpoint(monitor='val_loss', mode = 'auto', verbose = 1,
                       save_best_only=True,
-                #      filepath = path + 'MCP/keras35_ModelCheckPoint.hdf5')
                       filepath = filepath + 'k37_' + date +'_'+ filename)
 
 model.fit(x_train, y_train, epochs=3000, 
@@ -65,8 +64,11 @@ print('acc : ', result[1])
 # loss :  0.10004928708076477
 # acc :  0.9708999991416931
 
-# padding 적용시...
+#   padding 적용시...
 #   acc :  0.9608949349914169
 
-#   MaxPooling2D 적용시
+#   MaxPooling2D 적용시...
 #   acc :  0.9797999858856201
+
+#   dnn...
+#   acc :  0.9717000126838684
