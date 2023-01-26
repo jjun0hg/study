@@ -49,3 +49,4 @@ print(loss)
 y_pred = x_predict.reshape(1,3,1)
 result = model.predict(y_pred)
 print('[50,60,70]의 결과 : ', result )
+
