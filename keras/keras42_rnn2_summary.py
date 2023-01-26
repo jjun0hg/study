@@ -18,11 +18,15 @@ print(x.shape)              # (7, 3, 1)
 
 #2. 모델구성
 model = Sequential()
-model.add(SimpleRNN(200, input_shape=(3,1)))
+model.add(SimpleRNN(units = 200, input_shape=(3,1)))
+                            # (N, 3, 1) -> ([batch, timesteps, feature])
 model.add(Dropout(0.3))
 model.add(Dense(400, activation='relu'))
 # model.add(Dropout(0.4))
 model.add(Dense(8, activation='relu'))
 model.add(Dense(1))
 model.summary()
-# param = (200 * 200) + (200 *1) + (200) =40400
+
+# param = (200 * 200) + (200 * 1) + (200) = 40400
+# units * ( feature + bias + units) = params
+
