@@ -25,7 +25,7 @@ model.add(Conv2D(128, (3,3), input_shape=(28,28,1),         #(28, 28, 128)
                 padding='same',     # valid      
                 strides= 2,
                 activation='relu'))                        
-model.add(MaxPooling2D())                                   #(14, 14, 128)
+model.add(MaxPooling2D())                                   #(14, 14, 128) // Maxpooling 하면 반으로 줄어듬.
 model.add(Conv2D(64, (2,2), padding='same'))                #(28, 28, 64)
 model.add(Conv2D(64, (2,2)))                                #(27, 27, 64)
 model.add(Flatten())                                        # 46656
