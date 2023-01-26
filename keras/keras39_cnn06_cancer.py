@@ -45,6 +45,8 @@ model = Sequential()
 model.add(Conv2D(64, (1,1), input_shape=(30, 1, 1)))
 model.add(Flatten())
 model.add(Dense(32, activation='linear'))    
+model.add(Dense(16, activation='relu'))
+model.add(Dense(8, activation='relu'))
 model.add(Dense(2, activation='linear'))    
 
 
@@ -84,6 +86,6 @@ y_test = np.argmax(y_test , axis=1)
 print("y_test(원래값) : ", y_test)
 
 acc = accuracy_score(y_test, y_predict)
-print(acc)      #   0.956140350877193
+print(acc)      #   
 
 

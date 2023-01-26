@@ -42,6 +42,8 @@ x_test = x_test.reshape(36, 13, 1, 1)
 model = Sequential()
 model.add(Conv2D(64, (2,1), input_shape=(13, 1, 1)))
 model.add(Flatten())
+model.add(Dense(16, activation='relu'))
+model.add(Dense(8, activation='relu'))
 model.add(Dense(3, activation='linear'))
 
 #3. 컴파일, 훈련
@@ -80,4 +82,4 @@ print("y_test(원래값) : ", y_test)
 acc = accuracy_score(y_test, y_predict)                     # 소수점 들어가는 실수 형태로 구성// error 발생
 print(acc)
 
-# 0.9722222222222222
+# 

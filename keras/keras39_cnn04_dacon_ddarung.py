@@ -44,13 +44,15 @@ x_test = x_test.reshape(266, 9, 1, 1)
 model = Sequential()
 model.add(Conv2D(64, (2,1), input_shape=(9, 1, 1)))
 model.add(Flatten())
+model.add(Dense(32, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(8, activation='relu'))
 model.add(Dense(1, activation='linear'))
-
 
 #3. 컴파일, 훈련
 model.compile(loss='mae', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-es = EarlyStopping(monitor='val_loss', mode='min',patience=50, 
+es = EarlyStopping(monitor='val_loss', mode='min',patience=170, 
                   restore_best_weights=True,              
                    verbose=1)
 import datetime                                             # 데이터 형식으로
@@ -62,7 +64,7 @@ mcp = ModelCheckpoint(monitor='val_loss', mode = 'auto', verbose = 1,
                       save_best_only=True,
                       filepath = filepath + 'k39_04_' + date +'_'+ filename)                   
 
-model.fit(x_train, y_train, epochs=1, batch_size=32,
+model.fit(x_train, y_train, epochs=10000, batch_size=32,
                 callbacks=[es,mcp],
                 validation_split=0.5)
 
@@ -83,6 +85,7 @@ submission.to_csv(path +"submission_0125.csv")
 
 
 """
+
 loss :  37.01087951660156
 RMSE :  52.54062534762734
 

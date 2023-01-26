@@ -45,6 +45,9 @@ x_test = x_test.reshape(1089, 8, 1, 1)
 model = Sequential()
 model.add(Conv2D(64, (2,1), input_shape=(8,1,1)))
 model.add(Flatten())
+model.add(Dense(32, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(8, activation='relu'))
 model.add(Dense(1, activation='linear'))
 
 #3. 컴파일, 훈련
@@ -52,7 +55,7 @@ import matplotlib.pyplot as plt
 
 model.compile(loss='mae', optimizer='adam')
 from tensorflow.keras.callbacks import EarlyStopping,  ModelCheckpoint
-es = EarlyStopping(monitor='val_loss', mode='min',patience=16, 
+es = EarlyStopping(monitor='val_loss', mode='min',patience=170, 
                   restore_best_weights=True,              
                    verbose=1)
 import datetime                                             # 데이터 형식으로
@@ -65,7 +68,7 @@ mcp = ModelCheckpoint(monitor='val_loss', mode = 'auto', verbose = 1,
                 #      filepath = path + 'MCP/keras30_ModelCheckPoint3.hdf5')
                       filepath = filepath + 'k39_05_' + date +'_'+ filename) 
 
-model.fit(x_train, y_train, epochs=1, batch_size=32,
+model.fit(x_train, y_train, epochs=10000, batch_size=32,
                 callbacks=[es,mcp],
                 validation_split=0.25)
 

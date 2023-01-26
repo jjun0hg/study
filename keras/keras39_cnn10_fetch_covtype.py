@@ -78,6 +78,8 @@ x_test = x_test.reshape(116203, 54, 1, 1)
 model = Sequential()
 model.add(Conv2D(64, (2,1), input_shape=(54, 1, 1)))
 model.add(Flatten())
+model.add(Dense(16, activation='relu'))
+model.add(Dense(8, activation='relu'))
 model.add(Dense(7, activation='linear'))
 
 #3. 컴파일, 훈련
@@ -113,5 +115,5 @@ y_test = np.argmax(y_test , axis=1)
 print("y_test(원래값) : ", y_test[:20])
 
 acc = accuracy_score(y_test, y_predict)
-print(acc)      #   0.9116201819230141
+print(acc)      #   
 

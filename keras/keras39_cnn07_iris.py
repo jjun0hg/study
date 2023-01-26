@@ -55,6 +55,8 @@ model = Sequential()
 model.add(Conv2D(64, (2,1), input_shape=(4, 1, 1)))
 model.add(Dense(32, activation='linear'))
 model.add(Flatten())
+model.add(Dense(16, activation='relu'))
+model.add(Dense(8, activation='relu'))
 model.add(Dense(3, activation='linear'))
 
 
@@ -103,7 +105,7 @@ acc = accuracy_score(y_test, y_predict)                     # 소수점 들어�
 print(acc)
 
 """
-1.0
+
 
 """
 
