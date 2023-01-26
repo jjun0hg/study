@@ -13,6 +13,7 @@ x = np.array([[1,2,3],[2,3,4],[3,4,5],
 y = np.array([4,5,6,7,8,9,10,11,12,13,50,60,70])
 x_predict = np.array([50,60,70])
 x = x.reshape(13,3,1)
+
 #2. 모델구성
 
 model = Sequential()
