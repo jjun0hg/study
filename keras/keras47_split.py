@@ -62,7 +62,7 @@ y_pred = x_predict.reshape(1,4,1)
 result = model.predict(y_pred)
 print('[7, 8, 9, 10]의 결과 : ', result )
 
-# [7, 8, 9, 10]의 결과 :  [[10.958965]]
+# [7, 8, 9, 10]의 결과 :  [[10.981844]]
 # model = Sequential()
 # model.add(LSTM(units=64, input_shape=(4,1)))
 # model.add(Dense(32, activation='linear'))
