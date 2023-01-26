@@ -36,3 +36,6 @@ model.summary()
 # LSTM == param = (4 * {(10) * (10 + 1 + 1)}) = 480
 # units * ( feature + bias + units) = params
 
+
+
+
