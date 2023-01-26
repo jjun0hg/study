@@ -115,5 +115,8 @@ y_test = np.argmax(y_test , axis=1)
 print("y_test(원래값) : ", y_test[:20])
 
 acc = accuracy_score(y_test, y_predict)
-print(acc)      #   
+print(acc)     
+#   0.3649
+
+
 

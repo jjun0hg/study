@@ -23,7 +23,7 @@ print(y.shape)
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, shuffle = True, 
-    random_state=333, test_size=0.2)
+    random_state=1000, test_size=0.2)
 
 scaler = MinMaxScaler()
 # scaler =StandardScaler()
@@ -40,15 +40,14 @@ x_test = x_test.reshape(36, 13, 1, 1)
 
 # #2. 모델구성
 model = Sequential()
-model.add(Conv2D(64, (2,1), input_shape=(13, 1, 1)))
+model.add(Conv2D(50, (2,1), input_shape=(13, 1, 1)))
+model.add(Dense(20, activation='linear'))
 model.add(Flatten())
-model.add(Dense(16, activation='relu'))
-model.add(Dense(8, activation='relu'))
 model.add(Dense(3, activation='linear'))
 
 #3. 컴파일, 훈련
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
-es = EarlyStopping(monitor='val_loss', mode='min',patience=16, 
+es = EarlyStopping(monitor='val_loss', mode='min',patience=100, 
                   restore_best_weights=True,              
                    verbose=1)
 import datetime                                             # 데이터 형식으로
@@ -82,4 +81,4 @@ print("y_test(원래값) : ", y_test)
 acc = accuracy_score(y_test, y_predict)                     # 소수점 들어가는 실수 형태로 구성// error 발생
 print(acc)
 
-# 
+# 0.75
