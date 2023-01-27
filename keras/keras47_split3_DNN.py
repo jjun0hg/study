@@ -15,7 +15,7 @@ def split_x(dataset, timesteps):
 bbb = split_x(a, timesteps)
 x = bbb[:, :-1]
 y = bbb[:, -1]
-x = x.reshape(96,4,1)
+x = x.reshape(96,4*1)
 
 # print(x,y)
 
@@ -40,10 +40,7 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 import datetime 
 
 model = Sequential()
-model.add(LSTM(units=350, input_shape=(4,1), 
-               return_sequences=True))
-model.add(LSTM(units=250))
-model.add(Dense(100, activation='relu'))
+model.add(Dense(128, activation = 'relu', input_shape=(4,)))    
 model.add(Dense(64, activation='relu'))
 model.add(Dense(40, activation='relu'))
 model.add(Dense(32, activation='relu'))
@@ -64,7 +61,7 @@ x_train, x_test, y_train, y_test = train_test_split(
 # 컴파일, 훈련
 
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
-es = EarlyStopping(monitor='loss', mode='min',patience=300, 
+es = EarlyStopping(monitor='loss', mode='min',patience=3, 
                   restore_best_weights=True,                
                    verbose=1)
 
@@ -74,17 +71,16 @@ date = datetime.datetime.now()
 date = date.strftime("%m%d_%H%M") 
 mcp = ModelCheckpoint(monitor='loss', mode = 'auto', verbose = 1,
                         save_best_only=True,
-                        filepath = filepath + 'k47_2_' + date +'_'+ filename)
-model.fit(x,y, epochs=10000, batch_size=32,
+                        filepath = filepath + 'k47_3_' + date +'_'+ filename)
+model.fit(x,y, epochs=100, batch_size=1,
           callbacks=[es,mcp],verbose=1)
 
 # 평가, 예측
 loss = model.evaluate(x,y)
 print(loss)
-x_pred = x_predict.reshape(7,4,1)
-result = model.predict(x_pred)
+result = model.predict(x_predict)
 print('[100, 107]의 결과 : ', result )
 
-# [100, 107]의 결과 :  [[ 99.97267 ][100.9594  ][101.94315 ][102.923676][103.90483 ][104.88763 ][105.86457 ]]
+# [100, 107]의 결과 :  [[ 99.68383 ][100.68564 ][101.68749 ][102.689316][103.69113 ][104.69296 ][105.6948  ]]
 
 

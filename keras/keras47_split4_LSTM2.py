@@ -15,7 +15,7 @@ def split_x(dataset, timesteps):
 bbb = split_x(a, timesteps)
 x = bbb[:, :-1]
 y = bbb[:, -1]
-x = x.reshape(96,4,1)
+x = x.reshape(96,2,2)       # 피쳐를 2개로
 
 # print(x,y)
 
@@ -31,7 +31,7 @@ x_predict = split_x(x_predict, timesteps)
 # print(x_predict)
 # print(x_predict.shape)
 
-x_predict = x_predict.reshape(7,4,1)
+x_predict = x_predict.reshape(7,2,2)        # 피쳐를 2개로
 
 # 모델구성
 from tensorflow.keras.models import Sequential
@@ -40,7 +40,7 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 import datetime 
 
 model = Sequential()
-model.add(LSTM(units=350, input_shape=(4,1), 
+model.add(LSTM(units=350, input_shape=(2,2), 
                return_sequences=True))
 model.add(LSTM(units=250))
 model.add(Dense(100, activation='relu'))
@@ -51,15 +51,6 @@ model.add(Dense(10, activation='linear'))
 model.add(Dense(1))
 model.summary()
 
-"""
-
-train_test_split = 2차원만 받아들임
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(
-    x,y, shuffle=True, random_state=1234
-)
-
-"""
 
 # 컴파일, 훈련
 
@@ -74,17 +65,19 @@ date = datetime.datetime.now()
 date = date.strftime("%m%d_%H%M") 
 mcp = ModelCheckpoint(monitor='loss', mode = 'auto', verbose = 1,
                         save_best_only=True,
-                        filepath = filepath + 'k47_2_' + date +'_'+ filename)
+                        filepath = filepath + 'k47_4_' + date +'_'+ filename)
 model.fit(x,y, epochs=10000, batch_size=32,
           callbacks=[es,mcp],verbose=1)
 
 # 평가, 예측
 loss = model.evaluate(x,y)
 print(loss)
-x_pred = x_predict.reshape(7,4,1)
+x_pred = x_predict.reshape(7,2,2)
 result = model.predict(x_pred)
 print('[100, 107]의 결과 : ', result )
 
-# [100, 107]의 결과 :  [[ 99.97267 ][100.9594  ][101.94315 ][102.923676][103.90483 ][104.88763 ][105.86457 ]]
+#[100, 107]의 결과 :  [[ 99.8649  ][100.77473 ][101.66263 ][102.527084][103.36673 ][104.1804  ] [104.96718 ]]
+
+
 
 
