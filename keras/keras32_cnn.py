@@ -6,7 +6,7 @@ model = Sequential()
 model.add(Conv2D(filters=10, kernel_size = (2,2),   #   filter = output(10)
                  input_shape=(5,5,1)))              #   (N(None), 4, 4, 10) // None == 데이터의 갯수
                                                     #   (batch_size(훈련의 갯수), rows, columns, chanels)
-model.add(Conv2D(5, (2,2)))                         #   filter = output(5)(N, 3, 3, 5)
+model.add(Conv2D(7, (2,2)))                         #   filter = output(5)(N, 3, 3, 5)
 model.add(Flatten())                                #   (N, 45)
 model.add(Dense(units = 10))                                #   (N, 10)
         # 인풋은 (batch_size, input_dim)
