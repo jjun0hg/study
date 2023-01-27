@@ -15,7 +15,7 @@ def split_x(dataset, timesteps):
 bbb = split_x(a, timesteps)
 x = bbb[:, :-1]
 y = bbb[:, -1]
-x = x.reshape(96,2,2)       # 피쳐를 2개로
+x = x.reshape(96,2,2,1)    
 
 # print(x,y)
 
@@ -31,21 +31,27 @@ x_predict = split_x(x_predict, timesteps)
 # print(x_predict)
 # print(x_predict.shape)
 
-x_predict = x_predict.reshape(7,2,2)        # 피쳐를 2개로
+x_predict = x_predict.reshape(7,2,2,1)        # 피쳐를 2개로
 
 # 모델구성
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, SimpleRNN, Dropout, LSTM 
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.layers import Conv2D, Dense, Flatten
+from tensorflow.keras import layers
 import datetime 
 
 model = Sequential()
-model.add(LSTM(units=350, input_shape=(2,2), 
-               return_sequences=True))
-model.add(LSTM(units=250))
+model.add(Conv2D(512, (2,2), input_shape=(2,2,1),     
+                padding="same",  
+                use_bias=True,            
+                kernel_initializer="random_normal",
+                activation='relu')) 
+model.add(layers.MaxPooling2D((2, 2)))
 model.add(Dense(100, activation='relu'))
 model.add(Dense(64, activation='relu'))
 model.add(Dense(40, activation='relu'))
+model.add(Flatten())
 model.add(Dense(32, activation='relu'))
 model.add(Dense(10, activation='linear'))
 model.add(Dense(1))
@@ -53,7 +59,6 @@ model.summary()
 
 
 # 컴파일, 훈련
-
 model.compile(loss='mse', optimizer='adam', metrics=['mae'])
 es = EarlyStopping(monitor='loss', mode='min',patience=300, 
                   restore_best_weights=True,                
@@ -65,17 +70,17 @@ date = datetime.datetime.now()
 date = date.strftime("%m%d_%H%M") 
 mcp = ModelCheckpoint(monitor='loss', mode = 'auto', verbose = 1,
                         save_best_only=True,
-                        filepath = filepath + 'k47_4_' + date +'_'+ filename)
+                        filepath = filepath + 'k47_5_' + date +'_'+ filename)
 model.fit(x,y, epochs=10000, batch_size=32,
           callbacks=[es,mcp],verbose=1)
 
 # 평가, 예측
 loss = model.evaluate(x,y)
 print(loss)
-x_pred = x_predict.reshape(7,2,2)
+x_pred = x_predict.reshape(7,2,2,1)
 result = model.predict(x_pred)
 print('[100, 107]의 결과 : ', result )
 
-#[100, 107]의 결과 :  [[ 99.8649  ][100.77473 ][101.66263 ][102.527084][103.36673 ][104.1804  ] [104.96718 ]]
+#[100, 107]의 결과 :  [[100.00063 ][101.00067 ][102.00067 ][103.000725][104.00082 ][105.00091 ] [106.00099 ]]
 
 
