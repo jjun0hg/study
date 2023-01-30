@@ -112,6 +112,7 @@ num_feature  = samsung_x_train.shape[2] # Feature 수
 scaler = StandardScaler()
 for ss in range(num_sequence):
     scaler.partial_fit(samsung_x_train[:, ss, :]) #fit은 train data만 함
+
 # 1. samsung train data
 results = []
 for ss in range(num_sequence):
@@ -134,30 +135,30 @@ for ss in range(num_sequence):
     results.append(scaler.transform(samsung_pred[:, ss, :]).reshape(num_sample, 1, num_feature))
 samsung_pred = np.concatenate(results, axis=1)
 
-# amore predict data
+
 num_sample   = amore_x_train.shape[0] # 샘플 데이터 수
 num_sequence = amore_x_train.shape[1] # 시계열 데이터 수 
 num_feature  = amore_x_train.shape[2] # Feature 수 
 scaler = StandardScaler()
 for ss in range(num_sequence):
     scaler.partial_fit(amore_x_train[:, ss, :]) #fit은 train data만 함
-# 1. amore train data
 results = []
+# 1. amore train data
 for ss in range(num_sequence):
     results.append(scaler.transform(amore_x_train[:, ss, :]).reshape(num_sample, 1, num_feature))
 amore_x_train = np.concatenate(results, axis=1)
 # 2. amore test data
 num_sample   = amore_x_test.shape[0] # 샘플 데이터 수 
-num_sequence = amore_x_test.shape[1] # 시계열 데이터 수 (=5)
-num_feature  = amore_x_test.shape[2] # Feature 수 (=3)
+num_sequence = amore_x_test.shape[1] # 시계열 데이터 수 
+num_feature  = amore_x_test.shape[2] # Feature 수 
 results = []
 for ss in range(num_sequence):
     results.append(scaler.transform(amore_x_test[:, ss, :]).reshape(num_sample, 1, num_feature))
 amore_x_test = np.concatenate(results, axis=1)
 # 3. amore predict data
 num_sample   = amore_pred.shape[0] # 샘플 데이터 수
-num_sequence = amore_pred.shape[1] # 시계열 데이터 수 (=5)
-num_feature  = amore_pred.shape[2] # Feature 수 (=3)
+num_sequence = amore_pred.shape[1] # 시계열 데이터 수
+num_feature  = amore_pred.shape[2] # Feature 수
 results = []
 for ss in range(num_sequence):
     results.append(scaler.transform(amore_pred[:, ss, :]).reshape(num_sample, 1, num_feature))
@@ -169,6 +170,9 @@ print(amore.shape)
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Dense, Input, Dropout
+from tensorflow.keras.models import Sequential, Model, load_model
+# model = load_model(path + 'stock0129_2354_0273-90703160.0000.hdf5')
+
 #2-1. 모델1.
 input1 = Input(shape=(5,4))
 dense1 = Dense(300, activation='relu', name='ds11')(input1)
@@ -214,7 +218,7 @@ filename = '{epoch:04d}-{val_loss:.4f}.hdf5'
 mcp = ModelCheckpoint(monitor='val_loss', mode = 'auto', verbose = 1,
                       save_best_only=True,
                       filepath = filepath + 'stock' + date +'_'+ filename)
-model.fit([samsung_x_train,amore_x_train], samsung_y_train, epochs=1000, 
+model.fit([samsung_x_train,amore_x_train], samsung_y_train, epochs=1, 
             verbose= 1, 
             batch_size=250,
             validation_split=0.33,
