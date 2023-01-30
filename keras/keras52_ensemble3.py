@@ -25,7 +25,7 @@ from tensorflow.keras.layers import Dense, Input
 
 #2-1. 모델1.
 input1 = Input(shape=(2,))
-dense1 = Dense(100, activation='relu', name='ds11')(input1)
+dense1 = Dense(250, activation='relu', name='ds11')(input1)
 dense2 = Dense(50, activation='relu', name='ds12')(dense1)
 dense3 = Dense(30, activation='relu', name='ds13')(dense2)
 dense4 = Dense(20, activation='relu', name='ds14')(dense3)
@@ -33,15 +33,15 @@ output1 = Dense(10, activation='linear', name='ds15')(dense4)
 
 #2-2. 모델2.
 input2 = Input(shape=(3,))
-dense21 = Dense(150, activation='relu', name='ds21')(input2)
-dense22 = Dense(50, activation='relu', name='ds22')(dense21)
-dense23 = Dense(30, activation='relu', name='ds23')(dense22)
+dense21 = Dense(250, activation='relu', name='ds21')(input2)
+dense22 = Dense(100, activation='relu', name='ds22')(dense21)
+dense23 = Dense(50, activation='relu', name='ds23')(dense22)
 dense24 = Dense(20, activation='relu', name='ds24')(dense23)
 output2 = Dense(10, activation='linear', name='ds25')(dense24)
 
 #2-3. 모델3.
 input3 = Input(shape=(2,))
-dense31 = Dense(200, activation='relu', name='ds31')(input3)
+dense31 = Dense(250, activation='relu', name='ds31')(input3)
 dense32 = Dense(150, activation='relu', name='ds32')(dense31)
 dense33 = Dense(30, activation='relu', name='ds33')(dense32)
 dense34 = Dense(20, activation='relu', name='ds34')(dense33)
@@ -57,14 +57,14 @@ merge4 = Dense(5, name='mg4')(merge3)
 last_output = Dense(1, name='last')(merge4)
 
 #2-5. 모델5 분기1
-dense5 = Dense(200, activation='relu', name='ds41')(last_output)
+dense5 = Dense(100, activation='relu', name='ds41')(last_output)
 dense5 = Dense(150, activation='relu', name='ds42')(dense5)
 dense5 = Dense(30, activation='relu', name='ds43')(dense5)
 dense5 = Dense(20, activation='relu', name='ds44')(dense5)
 output5 = Dense(10, activation='linear', name='ds45')(dense5)
 
 #2-5. 모델5 분기2
-dense6 = Dense(200, activation='relu', name='ds51')(last_output)
+dense6 = Dense(100, activation='relu', name='ds51')(last_output)
 dense6 = Dense(150, activation='relu', name='ds52')(dense6)
 dense6 = Dense(30, activation='relu', name='ds53')(dense6)
 dense6 = Dense(20, activation='relu', name='ds54')(dense6)
@@ -74,7 +74,7 @@ model = Model([input1,input2,input3],[output5, output6])
 model.summary()
 
 #3. 컴파일, 훈련
-model.compile(loss = 'mse', optimizer= 'adam')
+model.compile(loss = 'mse', optimizer= 'adam', metrics=['mae'])
 model.fit([x1_train, x2_train, x3_train], [y1_train, y2_train], epochs=1000, batch_size=8)
 
 #4. 평가,예측
