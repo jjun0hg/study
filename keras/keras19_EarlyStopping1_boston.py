@@ -30,7 +30,7 @@ earlyStopping = EarlyStopping(monitor='val_loss', mode='min',
                               patience=30, restore_best_weights=True,
                               verbose=1)       # loss == mode ='min'   // accuracy == mode ='auto'  //restore_best_weights의 defalut값은 False
 
-hist = model.fit(x_train, y_train, epochs=3000, batch_size=1,     
+hist = model.fit(x_train, y_train, epochs=1, batch_size=1,     
                 validation_split=0.2, callbacks=[earlyStopping], #   EarlyStopping 치명적 단점 == 끊은시점에 weight로 저장된다.
                 verbose=1)        #   verbose = 0 일때 속도가 더 빠르다. // verbose = 2 간략하게 보임(progress bar X) // verbose >=3 훈련 횟수만 보임
 
