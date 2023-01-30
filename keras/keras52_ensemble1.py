@@ -51,10 +51,10 @@ model.summary()
 
 #3. 컴파일, 훈련
 model.compile(loss = 'mse', optimizer= 'adam')
-model.fit([x1_train, x2_train], y_train, epochs=100, batch_size=8)
+model.fit([x1_train, x2_train], y_train, epochs=1000, batch_size=8)
 
 #4. 평가,예측
 loss = model.evaluate([x1_test, x2_test], y_test)
-result = model.predict([x1_test, x2_test])
+
 print('[100, 107]의 결과 : ', result )
 print(loss)
