@@ -49,3 +49,4 @@ print('val_loss : ', val_loss[-1])      #훈련의 마지막 값
 print('accuracy : ', accuracy[-1])      #훈련의 마지막 값
 print('val_acc : ', val_acc[-1])        #훈련의 마지막 값
 
+# reduceLR(MCP,ES 쪽에 있음)

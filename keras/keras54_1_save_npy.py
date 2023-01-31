@@ -30,7 +30,7 @@ xy_train = train_datagen.flow_from_directory(
 # x = (160,150,150,1) // 150,150 = 사진크기
 # y = (160,)
 
-xy_test = train_datagen.flow_from_directory(
+xy_test = test_datagen.flow_from_directory(
     './_data/brain/test/',
     target_size=(200,200),      # 이미지 크기 조정
     batch_size=10,              # pytorch는 batch로 분리후 집어넣는다.
