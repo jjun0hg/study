@@ -74,13 +74,15 @@ model.add(Dense(1, activation='sigmoid'))           # 0과 1  // softmax쓰려�
 model.compile(loss='binary_crossentropy', optimizer='adam',
               metrics=['acc'])
 
-hist = model.fit(xy_train[0][0], xy_train[0][1],
+hist = model.fit(   xy_train[0][0], xy_train[0][1],
+                    #xy_train,
                     batch_size=16, 
                     # steps_per_epoch=16,
                     epochs=100,
-                    validation_data= (xy_test[0][0], xy_test[0][1]))
+                    validation_data= (xy_test[0][0], xy_test[0][1]),
+                    validation_split=0.2)
                     # validation_steps=4)
-
+                    
 accuracy = hist.history['acc']
 val_acc = hist.history['val_acc']
 loss = hist.history['loss']

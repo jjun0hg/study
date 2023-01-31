@@ -69,12 +69,15 @@ model.add(Conv2D(32, (3,3), activation='relu'))
 model.add(Flatten())
 model.add(Dense(16, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))           # 0과 1  // softmax쓰려면 2가 되어야함
+# model.add(Dense(2, activation='softmax'))
 
 #3. 컴파일, 훈련
 model.compile(loss='binary_crossentropy', optimizer='adam',
               metrics=['acc'])
+# model.compile(loss='sparse_categorical_crossentropy', optimizer='adam',
+#               metrics=['acc'])
 
-hist = model.fit_generator(xy_train, steps_per_epoch=16, epochs=100,
+hist = model.fit_generator(xy_train, steps_per_epoch=16, epochs=1,
                     validation_data=xy_test,
                     validation_steps=4)
 accuracy = hist.history['acc']
@@ -93,7 +96,6 @@ import matplotlib.pyplot as plt
 plt.figure(figsize=(9,6))
 plt.plot(hist.history['loss'], c='red', marker='.', label='loss')          #list 형태는 그냥 넣어줘도됨
 plt.plot(hist.history['val_loss'], c='blue', marker='.', label='val_loss')
-# plt.plot(hist.history['accuracy'], c='green', marker='.', label='accuracy')
 plt.plot(hist.history['val_acc'], c='black', marker='.', label='val_acc')
 plt.grid() 
 plt.title('fit_generator')
